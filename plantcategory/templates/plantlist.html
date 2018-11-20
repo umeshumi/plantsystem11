@@ -1,0 +1,58 @@
+{% extends 'home.html' %}
+
+{% block content%}
+<div class="container">
+      <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active" style="color:white;">Grains</li>
+      </ol>
+      <div class="mb-4">
+      <a href="{% url 'plantcategory:addgrain' %}" class="btn btn-info">New Grain</a>
+      </div>
+        <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>Yesterday_Price</th>
+          <th>Today's_price</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        {% for plants in plant %}
+          <tr>
+            <td>
+              <a href="{% url 'plantcategory:plantdetails' plants.id %}">{{ plants.Name }}</a>
+            </td>
+            <td class="align-middle">{{ plants.Previous_Day_Price}}</td>
+            <td class="align-middle">{{ plants.Present_Day_Price}}</td>
+            
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+<nav aria-label="Page navigation example">
+<ul class="pagination">
+        {% if plant.has_previous %}
+        
+        <li class="page-item"><a class="page-link" href="?page={{ plant.previous_page_number }}">&laquo;</a></li>
+        {% endif %}
+        {% for i in plant.paginator.page_range %}
+      {% if plant.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    	{% endfor %}
+     
+
+        {% if plant.has_next %}
+           <li class="page-item"> <a class="page-link" href="?page={{ plant.next_page_number }}">&raquo;</a></li>
+            {% endif %}
+</ul>
+</nav>
+
+ 
+</div>
+{% endblock %}

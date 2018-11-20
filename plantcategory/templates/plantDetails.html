@@ -1,0 +1,20 @@
+{% extends 'home.html' %}
+
+{% block content%}
+{% for plants in plant %}
+<div class="container">
+
+		 <ol class="breadcrumb my-4">
+        <li class="breadcrumb-item active" style="color:white;">{{ plants }}</li>
+      </ol>
+
+		<p><h3 style="color:#293332">yesterday price:</h3>{{ plants.Previous_Day_Price}}</p>
+		<p><h3 style="color:#293332">Todays price:</h3>{{ plants.Present_Day_Price}}</p>
+		<img src="{{ plants.Image.url }}" width="300">
+		<p>{{ plants.Info}}</p>
+	</div>
+	
+
+	
+{% endfor %}
+{% endblock %}
